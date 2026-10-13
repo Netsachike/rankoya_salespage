@@ -1,26 +1,371 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * Rankoya tokens, copied from the app's src/app/globals.css ("Blue and Navy").
+ * Keep the palette blocks in sync with the app; the marketing-only additions
+ * are marked below.
+ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--text);
+  --color-fg-2: var(--text-2);
+  --color-fg-3: var(--text-3);
+  --color-ink: var(--ink);
+  --color-ink-fg: var(--ink-fg);
+  --color-signal: var(--signal);
+  --color-signal-ink: var(--signal-ink);
+  --color-blue: var(--blue);
+  --color-blue-bg: var(--blue-bg);
+  --color-blue-ink: var(--blue-ink);
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+  --color-chart-you: var(--chart-you);
+  --color-chart-a: var(--chart-a);
+  --color-chart-b: var(--chart-b);
+  --color-chart-c: var(--chart-c);
+  --color-chart-other: var(--chart-other);
+  --color-engine-google: var(--engine-google);
+  --color-engine-maps: var(--engine-maps);
+  --color-engine-chatgpt: var(--engine-chatgpt);
+  --color-engine-claude: var(--engine-claude);
+  --color-engine-gemini: var(--engine-gemini);
+  --color-engine-perplexity: var(--engine-perplexity);
+  --color-nav: var(--nav-bg);
+  --color-nav-fg: var(--nav-fg);
+  --color-nav-muted: var(--nav-muted);
+  --color-nav-border: var(--nav-border);
+  --color-nav-card: var(--nav-card);
+  --color-midnight: var(--midnight);
+  --color-frost: var(--frost);
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+
+  --shadow-card: var(--elev-card);
+  --shadow-pop: var(--elev-pop);
+  --shadow-raised: var(--elev-raised);
+  --shadow-showcase: var(--elev-showcase);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  color-scheme: light;
+  --bg: #f5f8fd;
+  --surface: #ffffff;
+  --surface-2: #eff3f9;
+  --border: #e3e9f2;
+  --border-strong: #cbd5e3;
+  --text: #0e1a33;
+  --text-2: #4b5a74;
+  --text-3: #64748b;
+  --ink: #2563eb;
+  --ink-fg: #ffffff;
+  --signal: #5b47f5;
+  --signal-ink: #ffffff;
+  --blue: #2563eb;
+  --blue-bg: #e6eeff;
+  --blue-ink: #1d4ed8;
+  --success: #15803d;
+  --success-bg: #e8f7ee;
+  --warning: #b45309;
+  --warning-bg: #fdf3e3;
+  --danger: #c42b2b;
+  --danger-bg: #fdecec;
+  --chart-you: #2563eb;
+  --chart-a: #f08a24;
+  --chart-b: #13a38b;
+  --chart-c: #b54ac7;
+  --chart-other: #8a94a6;
+
+  --engine-google: #16a34a;
+  --engine-maps: #1a73e8;
+  --engine-chatgpt: #8b5cf6;
+  --engine-claude: #ea580c;
+  --engine-gemini: #3b82f6;
+  --engine-perplexity: #0d9488;
+
+  --nav-bg: #0f1b33;
+  --nav-fg: #c9d2e3;
+  --nav-muted: #8a97ae;
+  --nav-border: #1f2c48;
+  --nav-card: #16233f;
+
+  /* Marketing-only: the fixed dark panel colours (same in both themes) */
+  --midnight: #0b1220;
+  --frost: #eef2f8;
+
+  --hover-mix: black;
+  --elev-card: 0 1px 2px rgb(14 26 51 / 0.04), 0 1px 1px rgb(14 26 51 / 0.02);
+  --elev-pop: 0 8px 24px -4px rgb(14 26 51 / 0.14), 0 0 0 1px var(--border);
+  --elev-raised: 0 1px 2px rgb(14 26 51 / 0.06), 0 0 0 1px var(--border);
+  --elev-showcase: 0 24px 64px -24px rgb(11 18 32 / 0.45), 0 0 0 1px rgb(255 255 255 / 0.06);
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #0b1220;
+  --surface: #111a2e;
+  --surface-2: #18233a;
+  --border: #22304a;
+  --border-strong: #30405e;
+  --text: #eef2f8;
+  --text-2: #a8b3c7;
+  --text-3: #8492a8;
+  --ink: #3b82f6;
+  --ink-fg: #ffffff;
+  --signal: #7c6cff;
+  --signal-ink: #ffffff;
+  --blue: #7aa2ff;
+  --blue-bg: #17264a;
+  --blue-ink: #a9c1ff;
+  --success: #4ade80;
+  --success-bg: #0f2a1c;
+  --warning: #fbbf24;
+  --warning-bg: #2e2210;
+  --danger: #ff7a7a;
+  --danger-bg: #2f1414;
+  --chart-you: #7aa2ff;
+  --chart-a: #f5a04a;
+  --chart-b: #2ec4a8;
+  --chart-c: #cf6fe0;
+  --chart-other: #8492a8;
+
+  --engine-google: #4ade80;
+  --engine-maps: #6ea8fe;
+  --engine-chatgpt: #a78bfa;
+  --engine-claude: #fb923c;
+  --engine-gemini: #60a5fa;
+  --engine-perplexity: #2dd4bf;
+
+  --hover-mix: white;
+  --elev-card: none;
+  --elev-pop: 0 0 0 1px var(--border-strong), 0 12px 32px -8px rgb(0 0 0 / 0.6);
+  --elev-raised: 0 0 0 1px var(--border-strong);
+  --elev-showcase: 0 24px 64px -24px rgb(0 0 0 / 0.7), 0 0 0 1px var(--border-strong);
+}
+
+/* ───────────── Type scale: the app's fixed sizes plus fluid marketing sizes ───────────── */
+@utility text-hero {
+  font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem);
+  line-height: 1.04;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+@utility text-section {
+  font-size: clamp(1.875rem, 1.4rem + 1.9vw, 2.75rem);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+@utility text-lead {
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+@utility text-display {
+  font-size: 44px;
+  line-height: 48px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+@utility text-h1 {
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+@utility text-h2 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+@utility text-h3 {
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 600;
+}
+@utility text-body {
+  font-size: 14px;
+  line-height: 20px;
+}
+@utility text-body-lg {
+  font-size: 16px;
+  line-height: 24px;
+}
+@utility text-small {
+  font-size: 13px;
+  line-height: 18px;
+}
+@utility text-caption {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+@utility text-overline {
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+@utility text-metric-xl {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 40px;
+  line-height: 44px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+@utility text-metric {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+/* Any compared number: mono + tabular figures, size inherited */
+@utility num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+@utility bg-ink-hover {
+  background-color: color-mix(in oklab, var(--ink), var(--ink-fg) 14%);
+}
+@utility bg-surface-hover {
+  background-color: color-mix(in oklab, var(--surface), var(--hover-mix) 6%);
+}
+
+/* ───────────────────────── Base ───────────────────────── */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-bg text-body-lg text-fg antialiased;
+  }
+  /* Anchored sections clear the sticky header */
+  [id] {
+    scroll-margin-top: 88px;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  ::selection {
+    background-color: var(--signal);
+    color: var(--signal-ink);
+  }
+  a {
+    text-underline-offset: 3px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+:where(a, button, input, select, textarea, summary, [tabindex], [role="button"]):focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* Press feedback shared by buttons */
+.press {
+  transition-property: transform, background-color, border-color, color, box-shadow, opacity;
+  transition-duration: 120ms;
+  transition-timing-function: var(--ease-out);
+}
+.press:active:not(:disabled):not([aria-disabled="true"]) {
+  transform: scale(0.97);
+}
+
+/* ───────────────────────── Mobile menu ───────────────────────── */
+@keyframes rankoya-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+.menu-dialog[open] {
+  animation: rankoya-menu-in 220ms var(--ease-out);
+}
+
+/* ───────────────────────── Works-with marquee ───────────────────────── */
+@keyframes rankoya-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: rankoya-marquee 40s linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+.marquee-mask {
+  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .press:active:not(:disabled) {
+    transform: none;
+  }
+  /* Still: one centred, wrapping row instead of a scrolling loop */
+  .marquee-track {
+    animation: none;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .marquee-track > ul {
+    flex-shrink: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-inline: 16px;
+  }
+  .marquee-copy {
+    display: none !important;
+  }
+  .marquee-mask {
+    mask-image: none;
+  }
 }
