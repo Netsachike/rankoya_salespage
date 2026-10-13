@@ -37,7 +37,8 @@ export type NavLink = { label: string; href: `#${string}` };
 export const NAV_LINKS: NavLink[] = [
   { label: "Product", href: "#product" },
   { label: "Features", href: "#features" },
-  { label: "Works with", href: "#works-with" },
+  { label: "How it works", href: "#how-it-works" },
+  { label: "Integrations", href: "#integrations" },
 ];
 
 /** The app hosts Rankoya's legal documents. */

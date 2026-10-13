@@ -1,5 +1,7 @@
 import { Features } from "@/components/sections/features";
 import { Hero } from "@/components/sections/hero";
+import { HowItWorks } from "@/components/sections/how-it-works";
+import { Integrations } from "@/components/sections/integrations";
 import { ProductShowcase } from "@/components/sections/product-showcase";
 import { WorksWith } from "@/components/sections/works-with";
 
@@ -11,6 +13,8 @@ export default function Home() {
       <WorksWith />
       <ProductShowcase />
       <Features />
+      <HowItWorks />
+      <Integrations />
     </>
   );
 }

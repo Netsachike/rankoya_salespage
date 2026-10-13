@@ -28,7 +28,10 @@ export function PlatformIcon({
         aria-hidden={decorative || undefined}
         aria-label={decorative ? undefined : platform.name}
         role={decorative ? undefined : "img"}
-        className={cn("grid shrink-0 place-items-center bg-nav num font-semibold text-frost", className)}
+        className={cn(
+          "grid shrink-0 place-items-center bg-surface-2 num font-semibold text-fg-2 ring-1 ring-border-strong ring-inset",
+          className,
+        )}
         style={{ width: size, height: size, borderRadius: radius, fontSize: Math.round(size * 0.34) }}
       >
         {platform.monogram}
