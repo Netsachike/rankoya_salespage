@@ -1,14 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { Logo } from "@/components/brand/logo";
+import { DesktopNav } from "@/components/layout/desktop-nav";
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/cn";
-import { NAV_LINKS, SIGN_IN_URL, SIGN_UP_URL } from "@/lib/site";
+import { SIGN_IN_URL, SIGN_UP_URL } from "@/lib/site";
 
 /** Scroll distance after which the header gets its background and border. */
 const SCROLLED_AT = 8;
@@ -31,24 +33,11 @@ export function Header() {
       )}
     >
       <Container className="flex h-16 items-center gap-6">
-        <a href="#top" className="-m-1 rounded-md p-1" aria-label="Rankoya home">
+        <Link href="/" className="-m-1 rounded-md p-1" aria-label="Rankoya home">
           <Logo height={26} priority />
-        </a>
+        </Link>
 
-        <nav aria-label="Main" className="hidden flex-1 justify-center lg:flex">
-          <ul className="flex items-center gap-1">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="rounded-full px-3.5 py-2 text-[15px] font-medium text-fg-2 transition-colors hover:bg-surface-2 hover:text-fg"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <DesktopNav />
 
         <div className="ms-auto hidden items-center gap-2 lg:flex">
           <ThemeToggle />

@@ -1,5 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 
+import { SmartLink } from "@/components/ui/smart-link";
 import { cn } from "@/lib/cn";
 
 export const buttonVariants = cva(
@@ -26,9 +27,18 @@ export const buttonVariants = cva(
 
 type ButtonVariantProps = VariantProps<typeof buttonVariants>;
 
-/** A link styled as a button. Every CTA on the page navigates, so this is the common case. */
-export function ButtonLink({ className, variant, size, ...props }: React.ComponentProps<"a"> & ButtonVariantProps) {
-  return <a className={cn(buttonVariants({ variant, size }), className)} {...props} />;
+/**
+ * A link styled as a button. Every CTA navigates, so this is the common case.
+ * Internal pages go through next/link; the app, mailto and anchors stay plain.
+ */
+export function ButtonLink({
+  className,
+  variant,
+  size,
+  href,
+  ...props
+}: Omit<React.ComponentProps<"a">, "href"> & { href: string } & ButtonVariantProps) {
+  return <SmartLink href={href} className={cn(buttonVariants({ variant, size }), className)} {...props} />;
 }
 
 export function Button({

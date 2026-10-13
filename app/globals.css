@@ -75,7 +75,9 @@
   --border-strong: #cbd5e3;
   --text: #0e1a33;
   --text-2: #4b5a74;
-  --text-3: #64748b;
+  /* Darker than the app's #64748b, which is 4.47:1 on --bg and fails AA for
+     small text; #5d6c82 clears 4.5:1 on bg, surface, surface-2 and blue-bg. */
+  --text-3: #5d6c82;
   --ink: #2563eb;
   --ink-fg: #ffffff;
   --signal: #5b47f5;

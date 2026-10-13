@@ -1,11 +1,12 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { Logo } from "@/components/brand/logo";
 import { Button, ButtonLink } from "@/components/ui/button";
-import { NAV_LINKS, SIGN_IN_URL, SIGN_UP_URL } from "@/lib/site";
+import { SmartLink } from "@/components/ui/smart-link";
+import { MAIN_NAV, SIGN_IN_URL, SIGN_UP_URL } from "@/lib/site";
 
 const DIALOG_ID = "mobile-menu";
 
@@ -69,19 +70,54 @@ export function MobileMenu() {
             </Button>
           </div>
 
-          <nav aria-label="Main" className="mt-6">
+          <nav aria-label="Main" className="mt-4 min-h-0 flex-1 overflow-y-auto">
             <ul className="divide-y divide-border border-y border-border">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} onClick={close} className="flex py-4 text-[20px] font-medium tracking-tight">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {MAIN_NAV.map((entry) =>
+                entry.kind === "menu" ? (
+                  <li key={entry.id}>
+                    {/* Native disclosure: keyboard and screen-reader support, no state */}
+                    <details className="group">
+                      <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-[20px] font-medium tracking-tight [&::-webkit-details-marker]:hidden">
+                        {entry.label}
+                        <ChevronDown
+                          aria-hidden
+                          className="size-5 text-fg-3 transition-transform duration-200 group-open:rotate-180"
+                        />
+                      </summary>
+                      <ul className="space-y-1 pb-4">
+                        {[...entry.items, ...(entry.more?.items ?? [])].map((item) => (
+                          <li key={item.href}>
+                            <SmartLink
+                              href={item.href}
+                              onClick={close}
+                              className="flex flex-col rounded-lg px-3 py-2 transition-colors hover:bg-surface-2"
+                            >
+                              <span className="text-[16px] font-medium">{item.label}</span>
+                              {item.description ? (
+                                <span className="text-[14px] text-fg-3">{item.description}</span>
+                              ) : null}
+                            </SmartLink>
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  </li>
+                ) : (
+                  <li key={entry.href}>
+                    <SmartLink
+                      href={entry.href}
+                      onClick={close}
+                      className="flex py-4 text-[20px] font-medium tracking-tight"
+                    >
+                      {entry.label}
+                    </SmartLink>
+                  </li>
+                ),
+              )}
             </ul>
           </nav>
 
-          <div className="mt-auto flex flex-col gap-3 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+          <div className="flex shrink-0 flex-col gap-3 pt-6 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
             <ButtonLink href={SIGN_UP_URL} size="lg">
               Get started
             </ButtonLink>
