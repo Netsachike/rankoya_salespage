@@ -1,3 +1,4 @@
+import { Features } from "@/components/sections/features";
 import { Hero } from "@/components/sections/hero";
 import { ProductShowcase } from "@/components/sections/product-showcase";
 import { WorksWith } from "@/components/sections/works-with";
@@ -9,6 +10,7 @@ export default function Home() {
       <Hero />
       <WorksWith />
       <ProductShowcase />
+      <Features />
     </>
   );
 }
