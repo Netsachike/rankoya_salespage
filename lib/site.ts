@@ -39,6 +39,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Features", href: "#features" },
   { label: "How it works", href: "#how-it-works" },
   { label: "Integrations", href: "#integrations" },
+  { label: "Pricing", href: "#pricing" },
 ];
 
 /** The app hosts Rankoya's legal documents. */
