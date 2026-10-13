@@ -1,12 +1,12 @@
 "use client";
 
-import { ArrowUp, Check, Lock, Pencil } from "lucide-react";
-import { animate, useInView, useReducedMotion } from "motion/react";
+import { Check, Lock, Pencil } from "lucide-react";
 import * as m from "motion/react-m";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { AgentAvatar, Mark } from "@/components/brand/logo";
 import { PlatformIcon } from "@/components/brand/platform-tile";
+import { Delta, EASE_OUT, MockCard as Card, useCountUp, useMockupPlay } from "@/components/mockups/parts";
 import {
   ENGINE_STROKE,
   MOCK_APPROVAL,
@@ -20,18 +20,13 @@ import {
 import { PLATFORMS } from "@/content/platforms";
 import { cn } from "@/lib/cn";
 
-const EASE_OUT = [0.23, 1, 0.32, 1] as const;
-
 /**
  * A coded stand-in for the Rankoya overview screen. Everything inside is
  * decorative (the caller supplies the text alternative). It plays once, the
  * first time it scrolls into view; with reduced motion it renders the end state.
  */
 export function DashboardMockup() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "0px 0px -20% 0px" });
-  const reduce = useReducedMotion() ?? false;
-  const play = inView || reduce;
+  const { ref, play, reduce } = useMockupPlay<HTMLDivElement>();
 
   return (
     <div
@@ -115,37 +110,6 @@ function Sidebar() {
       ))}
     </div>
   );
-}
-
-function Card({ className, children }: { className?: string; children: React.ReactNode }) {
-  return (
-    <div className={cn("rounded-lg border border-border bg-surface p-3 shadow-card sm:p-4", className)}>{children}</div>
-  );
-}
-
-function Delta({ value, className }: { value: number; className?: string }) {
-  return (
-    <span className={cn("inline-flex items-center gap-0.5 num text-[11px] font-medium text-success", className)}>
-      <ArrowUp className="size-3" strokeWidth={2.5} />
-      {value}
-    </span>
-  );
-}
-
-/** Counts from 0 to `to` once `play` turns true. */
-function useCountUp(to: number, play: boolean, reduce: boolean, delay = 0) {
-  const [value, setValue] = useState(0);
-  useEffect(() => {
-    if (!play || reduce) return;
-    const controls = animate(0, to, {
-      duration: 1.2,
-      delay,
-      ease: EASE_OUT,
-      onUpdate: (v) => setValue(Math.round(v)),
-    });
-    return () => controls.stop();
-  }, [to, play, reduce, delay]);
-  return reduce ? to : value;
 }
 
 function ScoreCard({ play, reduce }: { play: boolean; reduce: boolean }) {
