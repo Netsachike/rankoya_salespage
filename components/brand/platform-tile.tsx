@@ -13,12 +13,15 @@ export function PlatformIcon({
   size = 28,
   className,
   decorative = false,
+  eager = false,
 }: {
   id: PlatformId;
   size?: number;
   className?: string;
   /** True when a visible label sits next to the icon. */
   decorative?: boolean;
+  /** Above the fold: load straight away instead of lazily. */
+  eager?: boolean;
 }) {
   const platform = PLATFORMS[id];
   const radius = Math.round(size * 0.24);
@@ -44,6 +47,7 @@ export function PlatformIcon({
       alt={decorative ? "" : platform.name}
       width={size}
       height={size}
+      loading={eager ? "eager" : "lazy"}
       className={cn("shrink-0 bg-white", className)}
       style={{ borderRadius: radius }}
     />

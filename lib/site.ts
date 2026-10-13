@@ -40,6 +40,17 @@ export const NAV_LINKS: NavLink[] = [
   { label: "How it works", href: "#how-it-works" },
   { label: "Integrations", href: "#integrations" },
   { label: "Pricing", href: "#pricing" },
+  { label: "FAQ", href: "#faq" },
+];
+
+/** Footer columns. Social links join once the accounts exist. */
+export const FOOTER_PRODUCT_LINKS: NavLink[] = [
+  { label: "Product tour", href: "#product" },
+  { label: "Features", href: "#features" },
+  { label: "How it works", href: "#how-it-works" },
+  { label: "Integrations", href: "#integrations" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 /** The app hosts Rankoya's legal documents. */
