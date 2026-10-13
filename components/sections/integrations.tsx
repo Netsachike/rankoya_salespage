@@ -1,9 +1,16 @@
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+
 import { PlatformIcon } from "@/components/brand/platform-tile";
 import { Container, Section, SectionHeading } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
+import { INTEGRATION_PAGES, integrationHref } from "@/content/integration-pages";
 import { INTEGRATION_GROUPS, INTEGRATIONS_INTRO, type IntegrationGroup } from "@/content/integrations";
 import { PLATFORMS } from "@/content/platforms";
 import { cn } from "@/lib/cn";
+
+/** Each connectable platform links to its integration page. */
+const PAGE_FOR = new Map(INTEGRATION_PAGES.map((page) => [page.platform, integrationHref(page.slug)]));
 
 /** Integrations grouped as the app's catalog groups them. */
 export function Integrations() {
@@ -29,6 +36,15 @@ export function Integrations() {
               <GroupCard group={group} />
             </Reveal>
           ))}
+        </div>
+        <div className="mt-8 text-center">
+          <Link
+            href="/integrations"
+            className="group inline-flex items-center gap-1.5 text-[15px] font-medium text-blue hover:underline"
+          >
+            All integrations
+            <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-0.5" />
+          </Link>
         </div>
       </Container>
     </Section>
@@ -62,7 +78,16 @@ function GroupCard({ group }: { group: IntegrationGroup }) {
             <li key={item.id} className="flex items-start gap-3.5 px-4 py-3.5">
               <PlatformIcon id={item.id} size={36} decorative className="mt-0.5" />
               <div className="min-w-0">
-                <p className="text-[15px] font-semibold text-fg">{PLATFORMS[item.id].name}</p>
+                {PAGE_FOR.has(item.id) ? (
+                  <Link
+                    href={PAGE_FOR.get(item.id) ?? "/integrations"}
+                    className="text-[15px] font-semibold text-fg hover:text-blue hover:underline"
+                  >
+                    {PLATFORMS[item.id].name}
+                  </Link>
+                ) : (
+                  <p className="text-[15px] font-semibold text-fg">{PLATFORMS[item.id].name}</p>
+                )}
                 <p className="mt-0.5 text-[14px] leading-5 text-fg-2">{item.description}</p>
               </div>
             </li>

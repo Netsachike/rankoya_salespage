@@ -48,7 +48,7 @@ export function WorkspaceMockup() {
               <span className="text-end num text-[13px]">{client.position}</span>
               <span className="text-end">
                 {client.waiting > 0 ? (
-                  <span className="rounded-full bg-signal/12 px-2 py-0.5 num text-[11px] font-medium text-signal">
+                  <span className="rounded-full bg-signal/12 px-2 py-0.5 num text-[11px] font-medium text-signal-text">
                     {client.waiting} to approve
                   </span>
                 ) : (

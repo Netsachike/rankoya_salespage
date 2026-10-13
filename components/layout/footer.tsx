@@ -46,8 +46,8 @@ function Watermark() {
 export function Footer() {
   return (
     <footer className="overflow-hidden border-t border-nav-border bg-midnight text-nav-fg">
-      <Container className="grid grid-cols-2 gap-x-8 gap-y-12 py-14 sm:grid-cols-3 lg:grid-cols-[minmax(0,1.6fr)_repeat(5,minmax(0,1fr))] lg:py-16">
-        <div className="col-span-2 max-w-xs sm:col-span-3 lg:col-span-1">
+      <Container className="grid grid-cols-2 gap-x-8 gap-y-12 py-14 sm:grid-cols-3 lg:grid-cols-6 lg:py-16">
+        <div className="col-span-full max-w-md">
           <Logo tone="onDark" height={26} />
           <p className="mt-4 text-[15px] text-nav-muted">{SITE.tagline}</p>
           <p className="mt-6 text-[14px] leading-6 text-nav-muted">

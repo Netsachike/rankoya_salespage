@@ -233,7 +233,10 @@ Not done here (needs people or devices): Firefox and Safari passes, iOS Safari o
 8. SVG versions of the lockup and mark, for the logo right-click menu and `/brand` (section 8.2).
 9. Contact form: an email provider (Resend, Postmark or similar) so `/contact` can send a form instead of opening `mailto:` (section 8.6).
 10. Confirm the Free plan column in the `/pricing` comparison: is competitor share of voice, the site audit or Telegram available on Free? (section 8.6).
-11. Apply the two contrast fixes in the app too: dark `--ink` `#2563eb` and light `--text-3` `#5d6c82`.
+11. Apply the three contrast fixes in the app too: dark `--ink` `#2563eb`, light `--text-3` `#5d6c82`, and a `--signal-text` token (dark `#9d91ff`) for violet text on violet tints.
+12. Sign off the editorial policy (`/editorial-policy`): it commits the team to human review of every article, corrections notes and no paid links (section 8.7).
+13. Review the two seed blog posts and the eight help articles before launch (section 8.7).
+14. First changelog entries at launch: `/changelog` stays unlisted and `noindex` until `content/changelog.ts` has a live entry (section 8.7).
 
 ---
 
@@ -380,3 +383,47 @@ The section 4 checklist, plus:
 | Metadata                                                                                 | Unique title, description, canonical and share image per page; sitemap lists all 11 pages; `llms.txt` and `llms-full.txt` served as `text/plain` |
 
 Still to do by hand: Safari, Firefox and iOS Safari passes of the menus, screen-reader passes of the menu and comparison table, and Lighthouse on the Vercel preview.
+
+### 8.7 Phase 10 and 11 results (local, production build)
+
+**Shipped: Phase 10**
+
+- **Integrations**: `/integrations` (grouped Publishing, Data and Approvals, plus the six engines tracked) and eight `/integrations/[slug]` pages. Each one has what Rankoya does with it, the access it needs, the data it uses, the control you keep, how to connect, what disconnecting does, a FAQ and the features that use it. All of it comes from the app's integration catalog and connect flows. The home integrations section now links to these pages.
+- **Audience pages**: `/for-local-businesses`, `/for-ecommerce`, `/for-saas` and `/for-startups`, from one template (`components/solutions/solution-page.tsx`). Each has the problem, how Rankoya helps (each point linked to its feature page), the integrations that matter and a FAQ. The startups timeline quotes the app's own estimate copy, with its caveat.
+- **Header**: Solutions and Resources are now menus, as on RankYak. Solutions lists the five audiences with a "Resellers" row (White Label, Enterprise). Resources lists Help centre, Blog, Integrations and Methodology with a "Company" row (About, Brand assets, Contact). The header is now Features ▾ · Solutions ▾ · Resources ▾ · Pricing; FAQ moved to the footer.
+- **Footer**: Product, Solutions, Integrations, Resources, Company and Legal, under a full-width brand row.
+
+**Shipped: Phase 11**
+
+- **MDX** through `@next/mdx` with `mdx-components.tsx` (brand prose styles, headings from `h2`) and a `Prose` reading column. Metadata lives in typed registries (`content/blog/posts.ts`, `content/help/articles.ts`); each MDX file holds only the body and is loaded with `import()` per slug, so listings, RSS, the sitemap and `llms.txt` never parse MDX.
+- **Blog**: `/blog`, `/blog/[slug]` with `BlogPosting` JSON-LD and Open Graph article fields, and `/blog/feed.xml` (RSS 2.0). Two seed posts: an explainer on AI visibility, and a guide to choosing the questions to track. Both are factual, carry no statistics, and every claim about Rankoya matches the app.
+- **Help centre**: `/help` and eight articles in four categories (Getting started, Measuring, Doing the work, Account), written from the app's own flows: site setup, integrations, AI visibility, rankings and competitors, the audit, approvals and autopilot, content, and plans.
+- **Company**: `/about` (verified facts only: what Rankoya does, how it works and the company name), `/methodology` (what is measured, how often, definitions, estimates and limits), `/editorial-policy` and `/brand` (PNG logo and symbol downloads, colours from the brand guide, usage rules).
+- **Logo right-click menu**: on the header logo, as on RankYak. It offers the four PNG downloads and All brand assets, and also opens from the keyboard context-menu key. Escape, an outside click or scrolling closes it.
+- **Changelog**: `/changelog` with a typed entry model.
+- **Sitemap and llms**: `SITE_PAGES` moved to `lib/site-pages.ts` (server-only) and is now generated from every registry. The sitemap lists 40 URLs. `llms-full.txt` adds integrations and audience pages.
+
+**Decisions taken with the plan's defaults**
+
+- **Legal pages stay in the app** (open item 6 unresolved, so there's still one source of truth). The footer keeps linking there.
+- **The changelog ships empty.** The app's history so far is development work before launch, not releases, so listing it would imply shipped features. The page explains this, is `noindex`, and stays out of menus, the sitemap and `llms.txt` until the first live entry exists (`HAS_CHANGELOG`).
+- **Seed content instead of an empty blog.** Two evergreen posts and eight help articles, written to the editorial policy. They need the product owner's review (open item 13).
+- **PNG only on `/brand`.** "Copy as SVG" waits for SVG files (open item 8).
+- **Not built (later phases or gated):** free tools, comparison pages, success stories, affiliates, press, API docs and the MCP page (section 8.4 gates).
+
+**Fixes**
+
+- **Violet text on violet tints** (the "Rankoya" owner chip) was 4.25:1 in dark mode. Fade-in content was hidden during earlier scans, so this only surfaced now. A new `--signal-text` token (`#5b47f5` light, `#9d91ff` dark) fixes the How it works chip and the mockup chips.
+
+**QA**
+
+| Check                                                                                   | Result                                                                                                                   |
+| --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `lint`, `typecheck`, `build`, `format:check`                                            | Clean; every route static or prerendered with `generateStaticParams`, share images included                              |
+| All 40 sitemap URLs                                                                     | 200                                                                                                                      |
+| axe, all 40 pages + `/changelog` + `/brand` dark, light 1440px and dark 390px (82 runs) | 0 violations after the `--signal-text` fix (one run re-done after a Chrome start-up failure)                             |
+| One `h1` per page, broken anchors, duplicate ids, console errors                        | None                                                                                                                     |
+| Menus (scripted)                                                                        | Enter, Escape with focus return, outside click and client-side navigation all pass; 57/57 reveals shown after navigating |
+| Feeds and metadata                                                                      | RSS valid; `/changelog` `noindex, follow`; unique title, canonical and share image per page                              |
+
+Still to do by hand: Safari, Firefox and iOS passes of the three menus and the logo menu, screen-reader passes, and Lighthouse on the Vercel preview.

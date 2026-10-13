@@ -1,3 +1,4 @@
+import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -15,4 +16,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+/** MDX for long-form content (blog, help, policies), imported by the pages that render it. */
+const withMDX = createMDX();
+
+export default withMDX(nextConfig);
