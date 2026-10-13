@@ -170,3 +170,21 @@ export const AUDIT_MOCK = {
     { severity: "notice", title: "Headings skip a level", count: 12, owner: "Rankoya" },
   ],
 } as const;
+
+/** Rank tracking page mockup: same fictional brand and keywords as RANKINGS_MOCK. */
+export const RANK_TRACKING_MOCK = {
+  average: 7.4,
+  averageDelta: 1.8,
+  bands: [
+    { label: "1–3", count: 4 },
+    { label: "4–10", count: 11 },
+    { label: "11–20", count: 9 },
+    { label: "21–50", count: 6 },
+  ],
+  rows: [
+    { keyword: "specialty coffee beans", device: "Desktop", position: 3, delta: 4 },
+    { keyword: "pour over coffee guide", device: "Mobile", position: 5, delta: 7 },
+    { keyword: "coffee subscription uk", device: "Desktop", position: 8, delta: 2 },
+    { keyword: "decaf coffee beans", device: "Mobile", position: 11, delta: -3 },
+  ],
+} as const;

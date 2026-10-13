@@ -10,7 +10,7 @@
 export type BillingPeriod = "monthly" | "annually";
 
 export type Plan = {
-  id: "free" | "professional" | "agency";
+  id: "free" | "professional" | "agency" | "reseller";
   name: string;
   pitch: string;
   /** USD per month. `null` = not set yet; Free is always 0. */
@@ -38,6 +38,7 @@ export const PRICING_COPY = {
   periods: { monthly: "Monthly", annually: "Annually" } as Record<BillingPeriod, string>,
   togglePending: "Billing options arrive with pricing.",
   footnote: "Payments are handled securely by Paddle.",
+  compareAll: "Compare all plans",
 } as const;
 
 export const PLANS: Plan[] = [
@@ -96,3 +97,123 @@ export const RESELLER = {
   licenceNote: "One-time licence",
   cta: "Talk to us",
 } as const;
+
+/** Enterprise (`reseller` key): on /pricing and /for-agencies, not in the home page's three cards. */
+export const ENTERPRISE_PLAN: Plan = {
+  id: "reseller",
+  name: "Enterprise",
+  pitch: "For partners who resell Rankoya under their own brand.",
+  price: { monthly: null, annually: null },
+  cta: "Get started",
+  included: [
+    "Everything in Agency",
+    "Reseller console",
+    "Create and manage reseller accounts",
+    "Unlimited workspaces",
+    "Unlimited team members",
+    "Dedicated partner support",
+  ],
+};
+
+/** White Label licence features, from the app's White Label tab (`account.upgrade.features.wl*`). */
+export const WHITE_LABEL_FEATURES = [
+  "Sell to your own customers under your brand",
+  "Set your own monthly, yearly or one-time pricing",
+  "Your domain, logo and colours",
+  "Partner dashboard",
+  "Sales kit included",
+  "Support handled behind your brand",
+] as const;
+
+type PlanColumn = Plan["id"];
+
+/**
+ * Full plan comparison for /pricing. Rows follow the app's plan cards
+ * (upgrade-view.tsx) and the site-setup billing list: Free tracks visibility
+ * and rankings; keyword research, the content plan and writing are paid.
+ */
+export const COMPARISON = {
+  title: "Compare every plan",
+  caption: "What each plan includes",
+  columns: ["free", "professional", "agency", "reseller"] as PlanColumn[],
+  groups: [
+    {
+      title: "Measure",
+      rows: [
+        {
+          label: "AI visibility in ChatGPT, Claude, Gemini, Perplexity and AI Overviews",
+          in: ["free", "professional", "agency", "reseller"],
+        },
+        { label: "Google rankings by keyword and device", in: ["free", "professional", "agency", "reseller"] },
+        { label: "Competitor share of voice", in: ["professional", "agency", "reseller"] },
+        { label: "Site audit with approved fixes", in: ["professional", "agency", "reseller"] },
+      ],
+    },
+    {
+      title: "Grow",
+      rows: [
+        { label: "Keyword research across your core topics", in: ["professional", "agency", "reseller"] },
+        { label: "Monthly content plan", in: ["professional", "agency", "reseller"] },
+        {
+          label: "Articles drafted by Rankoya, published after you approve",
+          in: ["professional", "agency", "reseller"],
+        },
+        { label: "Approvals on Telegram", in: ["professional", "agency", "reseller"] },
+      ],
+    },
+    {
+      title: "Teams and clients",
+      rows: [
+        { label: "Team collaboration", in: ["agency", "reseller"] },
+        { label: "Several brands per workspace", in: ["agency", "reseller"] },
+        { label: "Client-ready reports", in: ["agency", "reseller"] },
+        { label: "Agency resource kit", in: ["agency", "reseller"] },
+        { label: "Autopilot modes", in: ["agency", "reseller"] },
+      ],
+    },
+    {
+      title: "Resellers",
+      rows: [
+        { label: "Reseller console", in: ["reseller"] },
+        { label: "Create and manage reseller accounts", in: ["reseller"] },
+        { label: "Unlimited workspaces", in: ["reseller"] },
+        { label: "Unlimited team members", in: ["reseller"] },
+        { label: "Dedicated partner support", in: ["reseller"] },
+      ],
+    },
+  ] satisfies { title: string; rows: { label: string; in: PlanColumn[] }[] }[],
+} as const;
+
+export const PRICING_PAGE = {
+  metaTitle: "Pricing",
+  metaDescription:
+    "Rankoya plans: Free for tracking, Growth and Agency for the work, Enterprise and White Label for resellers. Compare everything each plan includes.",
+  faqTitle: "Billing questions",
+} as const;
+
+/** Only states what the app and its legal pages already say. */
+export const BILLING_FAQS = [
+  {
+    question: "Is there a free plan?",
+    answer:
+      "Yes. The Free plan tracks your AI visibility and Google rankings. Keyword research, the content plan and article writing come with the paid plans.",
+  },
+  {
+    question: "How are payments handled?",
+    answer: "Payments are handled securely by Paddle.",
+  },
+  {
+    question: "Can I change or cancel my plan?",
+    answer:
+      "Yes, from the Plans page in the app. If you cancel, your plan won't renew and you keep access until the end of the current billing period.",
+  },
+  {
+    question: "What is a White Label licence?",
+    answer:
+      "A one-time licence to sell Rankoya to your own customers under your brand, with your domain, logo and colours. Starter covers 100 client licences, Pro 300 and Unlimited has no cap.",
+  },
+  {
+    question: "Do you offer refunds?",
+    answer: "Refunds follow our refund policy, which sets out when and how you can ask for one.",
+  },
+];

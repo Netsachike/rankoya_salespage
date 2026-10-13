@@ -168,7 +168,7 @@ Deltas always carry an arrow and sign, not only colour.
 
 - **FAQ**: native `<details>`/`<summary>` (accessible, works without JS) with animated height, 8 questions from v1 rewritten in brand voice. Emits `FAQPage` JSON-LD.
 - **Final CTA**: midnight panel, "Be the answer.", one "Get started" button.
-- **Footer**: Product (section anchors), Company (contact `mailto`), Legal (app's privacy, terms, refund), social links only once accounts exist.
+- **Footer**: Product (section anchors), Company (contact `mailto`), Legal (app's privacy, terms, refund), social links only once accounts exist. Closes with the lockup as a large one-colour watermark at container width, fading towards the bottom edge and cropped by it (`assets/brand/logo-mask.png`, a white high-resolution cut of the lockup used as a CSS mask over a white-to-transparent gradient). Decorative and `aria-hidden`; it sits below the text so it never affects contrast.
 
 ### Phase 7: Polish and QA
 
@@ -228,3 +228,155 @@ Not done here (needs people or devices): Firefox and Safari passes, iOS Safari o
 3. Social accounts for the footer.
 4. Contact email for the footer and JSON-LD (`hello@rankoya.uk` is a placeholder).
 5. Analytics choice (section 6).
+6. Where the legal pages live: on this site (`/legal/…`, as RankYak does) or in the app (section 8.4).
+7. Competitor shortlist for the `/alternatives` pages (section 8.2).
+8. SVG versions of the lockup and mark, for the logo right-click menu and `/brand` (section 8.2).
+9. Contact form: an email provider (Resend, Postmark or similar) so `/contact` can send a form instead of opening `mailto:` (section 8.6).
+10. Confirm the Free plan column in the `/pricing` comparison: is competitor share of voice, the site audit or Telegram available on Free? (section 8.6).
+11. Apply the two contrast fixes in the app too: dark `--ink` `#2563eb` and light `--text-3` `#5d6c82`.
+
+---
+
+## 8. Additional pages, modelled on RankYak's site map
+
+Phases 1–7 deliver the home page. The rest of the site follows [rankyak.com](https://rankyak.com/)'s information architecture (captured 2026-10-13): three mega-menu dropdowns, two plain links and a seven-column footer. Each RankYak page is mapped to its Rankoya equivalent below. Rankoya's feature list comes from the app's own routes (`overview`, `visibility`, `rankings`, `competitors`, `actions`, `agent`, `content`, `audit`, `integrations`), not from RankYak's: Rankoya has no backlink exchange, MCP server or public API today, so those pages are left out until the product has them.
+
+URL patterns copy RankYak's (`/features/…`, `/for-…`, `/alternatives/…`, `/tools/…`, `/integrations/…`, `/success-stories/…`, `/legal/…`), which keeps the structure flat and readable.
+
+### 8.1 RankYak's navigation, for reference
+
+| Header item     | Type                     | Contents                                                                                                                                                                                                                                                                            |
+| --------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Features        | Mega-menu                | Five main features, each with a one-line description (Keyword discovery, Content plan, Article generation, Site Guard, Backlink exchange), then a "More in RankYak" row (Copilot, MCP server, Integrations).                                                                        |
+| Solutions       | Mega-menu                | Five audiences with one-line descriptions: For agencies, For SaaS, For ecommerce, For startups, For local businesses.                                                                                                                                                               |
+| Resources       | Mega-menu, three columns | **Free tools** (Robots.txt tester, Redirect checker, Meta tag checker, Broken link checker, Keyword clustering, Schema generator, All tools); **Compare** (six "vs" pages, All comparisons); **Learn** (Help center, API docs, Blog, What's new), each with a one-line description. |
+| Success stories | Link                     | Case studies by segment.                                                                                                                                                                                                                                                            |
+| Pricing         | Link                     | Pricing page.                                                                                                                                                                                                                                                                       |
+| Logo            | Right-click menu         | Copy logo as SVG, Copy icon as SVG, Download logo as PNG, All brand assets (`/brand`).                                                                                                                                                                                              |
+| Mobile          | Accordion                | The same three groups as collapsible sections, flat links inside, then Success stories, Pricing, Log in, Try for free.                                                                                                                                                              |
+
+Footer columns: Product, Solutions, Integrations (one link per platform), Compare, Free tools, Resources (Blog, Success stories, Help center, Changelog, API docs, `llms.txt`, `llms-full.txt`), Company (About, Methodology, Editorial policy, Contact, Affiliate program, Brand assets, Press). Then the copyright line, Privacy policy, Terms of service and social links.
+
+### 8.2 Rankoya's navigation
+
+**Header:** Features ▾ · Solutions ▾ · Resources ▾ · Success stories · Pricing, then theme toggle, Log in and Get started. "Success stories" only appears once real case studies exist (8.4); until then the header shows four items.
+
+**Features mega-menu**
+
+| Item                | Route                     | One-liner                                       | App source         |
+| ------------------- | ------------------------- | ----------------------------------------------- | ------------------ |
+| AI visibility       | `/features/ai-visibility` | See where AI answers mention you, and where not | `visibility`       |
+| Rank tracking       | `/features/rank-tracking` | Your Google and Maps positions, every day       | `rankings`         |
+| Competitor tracking | `/features/competitors`   | Who outranks you, and what changed              | `competitors`      |
+| SEO agent           | `/features/seo-agent`     | Drafts the fix, publishes after you approve     | `agent`, `actions` |
+| Content             | `/features/content`       | Articles planned from what ranks now            | `content`          |
+| Site audit          | `/features/site-audit`    | Finds what's holding your rankings back         | `audit`            |
+
+"More in Rankoya" row: Action plan (`/features/action-plan`), Telegram approvals (`/features/telegram-approvals`), Integrations (`/integrations`), White label (`/white-label`).
+
+**Solutions mega-menu**
+
+| Item                 | Route                   | One-liner                                     | Angle                                                                      |
+| -------------------- | ----------------------- | --------------------------------------------- | -------------------------------------------------------------------------- |
+| For agencies         | `/for-agencies`         | Every client site, one workspace              | Multi-site, client reports, White Label tiers; carries its own `#pricing`. |
+| For local businesses | `/for-local-businesses` | Show up in Maps and in AI answers near you    | Maps tracking, local AI answers.                                           |
+| For ecommerce        | `/for-ecommerce`        | Rank for every category you sell              | Shopify, category pages, product content.                                  |
+| For SaaS             | `/for-saas`             | Be the tool AI answers recommend              | Comparison-style AI prompts, content.                                      |
+| For startups         | `/for-startups`         | Grow search traffic before you hire marketing | The agent does the work, you approve.                                      |
+
+**Resources mega-menu**
+
+| Column     | Items                                                                                                                                                                                                           |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Free tools | AI visibility checker (Rankoya's own, the lead magnet), Robots.txt tester, Meta tag checker, Redirect checker, Broken link checker, Schema validator, All tools (`/tools`).                                     |
+| Compare    | `/alternatives/[slug]` pages against the closest AI-visibility and AI-SEO products, plus All comparisons (`/alternatives`). Shortlist to be confirmed by the product owner (open item 7).                       |
+| Learn      | Help center (`/help`, "How every feature works"), Blog (`/blog`, "SEO and AI search playbooks"), What's new (`/changelog`, "Every update, dated and explained"). API docs only if the app exposes a public API. |
+
+**Logo right-click menu:** Copy logo as SVG, Copy mark as SVG, Download logo as PNG, All brand assets (`/brand`). Needs SVG versions of the lockup and mark (open item 8).
+
+**Mobile:** the existing full-screen dialog becomes an accordion with the same three groups, as RankYak's does. Each group is a `<details>` (or a button with `aria-expanded`), so it works without JS.
+
+**Footer:** Product, Solutions, Integrations, Compare, Free tools, Resources, Company, mirroring RankYak. A column only appears once it has at least two live links. The watermark lockup (Phase 6) stays below the columns.
+
+| Column       | Links                                                                                                        |
+| ------------ | ------------------------------------------------------------------------------------------------------------ |
+| Product      | The six feature pages, Action plan, Telegram approvals, Pricing                                              |
+| Solutions    | The five `/for-…` pages, White label                                                                         |
+| Integrations | WordPress, Shopify, Webflow, Wix, Ghost, Google Search Console, Google Analytics, Telegram, All integrations |
+| Compare      | The `vs` pages, All comparisons                                                                              |
+| Free tools   | Each tool, All tools                                                                                         |
+| Resources    | Blog, Success stories, Help center, Changelog, `llms.txt`, `llms-full.txt`                                   |
+| Company      | About, Methodology, Editorial policy, Contact, Affiliate program, Brand assets, Press                        |
+| Bottom row   | © 2026 NETSACH TECH LTD, Privacy policy, Terms of service, Refund policy, social links                       |
+
+### 8.3 Phase 8: groundwork before any second page
+
+- **Nav data model.** Replace the flat `NAV_LINKS` with a typed menu tree in `lib/site.ts` (`group → items → { label, href, description?, icon? }`) that drives the desktop mega-menus, the mobile accordion and the footer, so a page is added in one place.
+- **Mega-menu component.** Disclosure pattern rather than ARIA `menu`: buttons with `aria-expanded`/`aria-controls`, opens on click and on hover with a short intent delay, closes on Escape, outside click and route change, keyboard reachable in order. Panels animate with CSS only (no new client weight beyond the open state).
+- **Absolute links.** Home-section links become `/#features` and so on, because `#anchor` hrefs break on every page other than `/`.
+- **`app/not-found.tsx`, `app/error.tsx`, `app/global-error.tsx`**: branded 404 and error fallbacks with the header, footer and a route home.
+- **Shared page parts:** `PageHero` (overline, `h1`, lead, CTA), `FeaturePageLayout`, `ComparisonTable`, `ToolShell`. Every page ends with the existing `FinalCta`.
+- **SEO per page:** `metadata` per route, an `opengraph-image.tsx` per page type from one shared component, `BreadcrumbList` JSON-LD through `lib/json-ld.ts`, and `app/sitemap.ts` generated from the menu tree plus every `content/` collection.
+- **MDX** through `@next/mdx` for help, blog, changelog and legal. Read the MDX and `generateStaticParams` guides in `node_modules/next/dist/docs/` first; this Next version differs from older ones.
+- **`/llms.txt` and `/llms-full.txt`** as route handlers generated from the same content (RankYak ships both; for an AI-visibility product they are table stakes).
+
+### 8.4 Build order
+
+| Phase | Pages                                                                                                                        | Depends on                                                                                            |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| 8     | Groundwork (8.3), header mega-menus, mobile accordion, new footer, 404                                                       | None                                                                                                  |
+| 9     | `/pricing`, the six `/features/…` pages, `/for-agencies` (with White Label pricing), `/contact`                              | Real prices (open item 2); contact email (open item 4); form handler for contact                      |
+| 10    | `/integrations` + `/integrations/[slug]`, the other four `/for-…` pages, `/legal/…` (if moved here)                          | Legal hosting decision (open item 6)                                                                  |
+| 11    | `/blog` + `/blog/[slug]` with RSS, `/changelog`, `/help` + articles, `/about`, `/methodology`, `/editorial-policy`, `/brand` | Content owner; SVG logo files                                                                         |
+| 12    | `/tools` + the free tools, starting with the AI visibility checker                                                           | Public, rate-limited backend endpoints                                                                |
+| 13    | `/alternatives` + `vs` pages, `/success-stories` + case studies, `/affiliates`, `/press`                                     | Confirmed competitor list and legal review; real named customers; a referral programme; real coverage |
+
+Gates that keep the no-fabrication rule (section 5): no success stories, press logos or "As seen in" strip until they are real; comparison pages only state checkable, dated facts about other products; no API docs or MCP page until those exist.
+
+### 8.5 Done when (per page)
+
+The section 4 checklist, plus:
+
+- It is reachable from the menu tree, so it shows up in the header or footer, the sitemap and `llms.txt` together.
+- It has a unique title, description and canonical, and its breadcrumbs JSON-LD validates.
+- It links to at least one related page and ends with `FinalCta`.
+- No copy repeats the home page word for word.
+
+### 8.6 Phase 8 and 9 results (local, production build)
+
+**Shipped**
+
+- **Nav data model** in `lib/site.ts`: `MAIN_NAV` (header menus and links), `FOOTER_COLUMNS` and `SITE_PAGES` (sitemap and `llms.txt`). Feature entries are generated from `content/feature-pages.ts`.
+- **Header**: Features mega-menu (`components/layout/desktop-nav.tsx`) with six feature pages, one-line descriptions and a "More in Rankoya" row; For agencies, Pricing and FAQ as plain links. Disclosure pattern, opens on click or hover intent, closes on Escape (focus returns to the trigger), outside click, focus leaving the nav or following a link. Closed panels are `inert`.
+- **Mobile menu**: Features is a native `<details>` accordion; the panel scrolls if it outgrows the screen.
+- **Footer**: Product, Solutions, Resources, Company and Legal columns from `FOOTER_COLUMNS`, plus the watermark lockup.
+- **Links**: home sections are linked as `/#section`; `SmartLink` sends internal pages through `next/link` and keeps the app, `mailto:` and `/llms.txt` as plain anchors. `ButtonLink` uses it too.
+- **Shared parts**: `PageHero`, `Breadcrumbs` (with `BreadcrumbList` JSON-LD), `pageMetadata()` (title, description, canonical, Open Graph and Twitter per page), `brandOgImage()` (one share-card renderer for every route), and a reusable `Faq` that takes per-page questions.
+- **Routes**: `/features`, `/features/[slug]` (six pages, prerendered with `generateStaticParams`, unknown slugs 404), `/pricing` (four plans, reseller strip, full comparison table, billing FAQ), `/for-agencies` (workspace mockup, agency capabilities, `#white-label`, `#pricing`, FAQ), `/contact`, `not-found`, `error`, `global-error`, `/llms.txt`, `/llms-full.txt`. Every page has its own share image.
+- **Home**: each feature row links to its page; pricing links to `/pricing`.
+- **New mockups**: rank tracking (average position, position bands, keyword table by device) and the agency workspace.
+
+**Decisions taken with the plan's defaults**
+
+- **Solutions and Resources stay plain links for now.** Only `/for-agencies` exists in Solutions and nothing in Resources yet, and a menu needs at least two live pages (8.2). They become menus in Phases 10 and 11.
+- **The competitors page reuses the share-of-voice mockup**, which already shows competitor lines; rank tracking got its own.
+- **Contact uses `mailto:` links with a pre-filled subject per topic.** A form needs a handler and an email provider (open item 9).
+- **MDX is not installed yet.** No Phase 8 or 9 page needs it; it arrives with the first long-form page (legal, blog or help).
+- **`/features/[slug]` 404s through `notFound()`.** `dynamicParams = false` isn't available with Cache Components. The status is 200 once streaming has started, but Next adds `noindex`.
+- **Error boundaries take `retry`**, as this Next version names it (`reset` in older versions).
+- **`RevealObserver` re-runs on every route change**; before this, content on a page reached by client-side navigation stayed hidden.
+- **Light `--text-3` is `#5d6c82`** instead of the app's `#64748b`. The old value is 4.47:1 on `--bg` and failed AA for small text. It only passed on white cards, which is why earlier runs flagged it intermittently. **The app has the same issue.**
+- **Feature, pricing and agency copy only states what the app does**, taken from the app's messages and plan cards. The Free plan column of the comparison is inferred from the app's site-setup list: Free has tracking, and keyword research, content plan and writing are paid. Competitors, audit and Telegram are marked paid because the app lists them as Growth features (open item 10).
+
+**QA**
+
+| Check                                                                                    | Result                                                                                                                                           |
+| ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `lint`, `typecheck`, `build`                                                             | Clean; every route static, feature share images prerendered                                                                                      |
+| axe (WCAG 2.0–2.2 A/AA + best practice), all 11 pages + 404, light 1440px and dark 390px | 0 violations after the `--text-3` and landmark-name fixes; extra light 390px and dark 1440px runs on 5 pages also 0                              |
+| One `h1` per page, broken in-page anchors, duplicate ids, console errors                 | None                                                                                                                                             |
+| Menu keyboard and pointer behaviour (scripted in Chrome)                                 | Enter opens, Escape closes and refocuses the trigger, outside click closes, menu links navigate client-side and close the menu                   |
+| Reveals after client-side navigation                                                     | 57 of 57 shown on the destination page                                                                                                           |
+| Metadata                                                                                 | Unique title, description, canonical and share image per page; sitemap lists all 11 pages; `llms.txt` and `llms-full.txt` served as `text/plain` |
+
+Still to do by hand: Safari, Firefox and iOS Safari passes of the menus, screen-reader passes of the menu and comparison table, and Lighthouse on the Vercel preview.

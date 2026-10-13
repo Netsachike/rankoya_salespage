@@ -1,14 +1,18 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 /**
  * Drives every `.reveal` on the page with a single IntersectionObserver.
  * Elements already on screen are marked shown before hiding is switched on, so
  * nothing in view flickers; the rest fade in the first time they scroll in.
- * Far cheaper than one animation component per element.
+ * Far cheaper than one animation component per element. Runs again on every
+ * client-side navigation, because the new page brings new elements.
  */
 export function RevealObserver() {
+  const pathname = usePathname();
+
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const root = document.documentElement;
@@ -35,7 +39,7 @@ export function RevealObserver() {
       observer.disconnect();
       root.classList.remove("reveal-ready");
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }

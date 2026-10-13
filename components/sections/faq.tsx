@@ -2,36 +2,40 @@ import { Plus } from "lucide-react";
 
 import { Container, Section, SectionHeading } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
-import { FAQ_INTRO, FAQS } from "@/content/faq";
-import { serializeJsonLd } from "@/lib/json-ld";
+import { FAQ_INTRO, FAQS, type FaqItem } from "@/content/faq";
+import { faqJsonLd, serializeJsonLd } from "@/lib/json-ld";
 import { SITE } from "@/lib/site";
-
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQS.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: { "@type": "Answer", text: item.answer },
-  })),
-};
 
 /**
  * Native <details> accordion: keyboard and screen-reader support for free, and
  * it works without JavaScript. The open/close animation is CSS-only
  * (see `.faq-item` in globals.css) where the browser supports it.
+ * Emits FAQPage JSON-LD for the same items, so use it once per page.
  */
-export function Faq() {
+export function Faq({
+  id = "faq",
+  overline = FAQ_INTRO.overline,
+  title = FAQ_INTRO.title,
+  items = FAQS,
+  className,
+}: {
+  id?: string;
+  overline?: string;
+  title?: string;
+  items?: readonly FaqItem[];
+  className?: string;
+}) {
+  const headingId = `${id}-heading`;
   return (
-    <Section id="faq" aria-labelledby="faq-heading">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqJsonLd) }} />
+    <Section id={id} aria-labelledby={headingId} className={className}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqJsonLd(items)) }} />
       <Container className="grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-16">
         <Reveal>
           <SectionHeading
-            id="faq-heading"
+            id={headingId}
             align="start"
-            overline={FAQ_INTRO.overline}
-            title={FAQ_INTRO.title}
+            overline={overline}
+            title={title}
             lead={
               <>
                 {FAQ_INTRO.lead}{" "}
@@ -45,7 +49,7 @@ export function Faq() {
 
         <Reveal delay={0.08}>
           <div className="divide-y divide-border border-y border-border">
-            {FAQS.map((item) => (
+            {items.map((item) => (
               <details key={item.question} className="faq-item group">
                 <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-5 text-[17px] leading-6 font-semibold text-fg [&::-webkit-details-marker]:hidden">
                   {item.question}

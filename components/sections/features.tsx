@@ -1,4 +1,5 @@
-import { Check } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
+import Link from "next/link";
 
 import { AgentMockup } from "@/components/mockups/agent-mockup";
 import { AiVisibilityMockup } from "@/components/mockups/ai-visibility-mockup";
@@ -7,6 +8,7 @@ import { ContentMockup } from "@/components/mockups/content-mockup";
 import { RankingsMockup } from "@/components/mockups/rankings-mockup";
 import { Container, Section, SectionHeading } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
+import { FEATURE_PAGE_COPY, featureHref, type FeatureSlug } from "@/content/feature-pages";
 import { FEATURES, FEATURES_INTRO, type Feature, type FeatureId } from "@/content/features";
 import { cn } from "@/lib/cn";
 
@@ -16,6 +18,15 @@ const MOCKUPS: Record<FeatureId, () => React.ReactNode> = {
   agent: AgentMockup,
   content: ContentMockup,
   "site-audit": AuditMockup,
+};
+
+/** Each home row links to its full page. */
+const PAGE_FOR: Record<FeatureId, FeatureSlug> = {
+  "ai-visibility": "ai-visibility",
+  rankings: "rank-tracking",
+  agent: "seo-agent",
+  content: "content",
+  "site-audit": "site-audit",
 };
 
 /** The five feature deep-dives, alternating sides from `lg` up. */
@@ -73,6 +84,14 @@ function FeatureRow({ feature, index }: { feature: Feature; index: number }) {
             </li>
           ))}
         </ul>
+        <Link
+          href={featureHref(PAGE_FOR[feature.id])}
+          className="group mt-8 inline-flex items-center gap-1.5 text-[15px] font-medium text-blue hover:underline"
+        >
+          {FEATURE_PAGE_COPY.learnMore}
+          <span className="sr-only">: {feature.overline}</span>
+          <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-0.5" />
+        </Link>
       </Reveal>
 
       <Reveal delay={0.1} className={cn(flip && "lg:order-1")}>
