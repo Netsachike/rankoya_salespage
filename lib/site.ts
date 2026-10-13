@@ -1,9 +1,10 @@
 import type { LucideIcon } from "lucide-react";
+import { History, LifeBuoy, Newspaper, Plug, Ruler } from "lucide-react";
 
-import { AGENCIES_PAGE } from "@/content/agencies";
-import { CONTACT_PAGE } from "@/content/contact";
-import { FEATURE_PAGES, FEATURES_INDEX, featureHref } from "@/content/feature-pages";
-import { PRICING_PAGE } from "@/content/pricing";
+import { HAS_CHANGELOG } from "@/content/changelog";
+import { FEATURE_PAGES, featureHref } from "@/content/feature-pages";
+import { INTEGRATION_PAGES, integrationHref } from "@/content/integration-pages";
+import { AGENCIES_NAV_ITEM, SOLUTION_PAGES, solutionHref } from "@/content/solution-pages";
 
 /**
  * Every URL and nav entry the landing page uses. Components read from here,
@@ -60,11 +61,30 @@ const FEATURE_ITEMS: NavItem[] = FEATURE_PAGES.map((page) => ({
   icon: page.icon,
 }));
 
+const SOLUTION_ITEMS: NavItem[] = [
+  AGENCIES_NAV_ITEM,
+  ...SOLUTION_PAGES.map((page) => ({
+    label: page.label,
+    href: solutionHref(page.slug),
+    description: page.menuDescription,
+    icon: page.icon,
+  })),
+];
+
+const INTEGRATION_ITEMS: NavItem[] = INTEGRATION_PAGES.map((page) => ({
+  label: page.name,
+  href: integrationHref(page.slug),
+}));
+
+/** The changelog joins menus, the sitemap and llms.txt once it has a live entry. */
+const CHANGELOG_ITEM: NavItem[] = HAS_CHANGELOG
+  ? [{ label: "What's new", href: "/changelog", description: "Every update, dated and explained", icon: History }]
+  : [];
+
 /**
- * The header, modelled on RankYak's (plan §8.2). A group only becomes a menu
- * once it has two or more live pages: Solutions is a plain "For agencies" link
- * until the other audience pages ship, and Resources waits for the blog, help
- * centre and tools.
+ * The header, modelled on RankYak's (plan §8.2): Features, Solutions and
+ * Resources menus, then Pricing. A group is only a menu once it has two or
+ * more live pages, so nothing here points at a page that doesn't exist.
  */
 export const MAIN_NAV: NavEntry[] = [
   {
@@ -76,15 +96,46 @@ export const MAIN_NAV: NavEntry[] = [
       title: "More in Rankoya",
       items: [
         { label: "How it works", href: "/#how-it-works" },
-        { label: "Integrations", href: "/#integrations" },
+        { label: "Integrations", href: "/integrations" },
         { label: "White Label", href: "/for-agencies#white-label" },
         { label: "All features", href: "/features" },
       ],
     },
   },
-  { kind: "link", label: "For agencies", href: "/for-agencies" },
+  {
+    kind: "menu",
+    id: "solutions",
+    label: "Solutions",
+    items: SOLUTION_ITEMS,
+    more: {
+      title: "Resellers",
+      items: [
+        { label: "White Label", href: "/for-agencies#white-label" },
+        { label: "Enterprise", href: "/pricing" },
+      ],
+    },
+  },
+  {
+    kind: "menu",
+    id: "resources",
+    label: "Resources",
+    items: [
+      { label: "Help centre", href: "/help", description: "How every feature works", icon: LifeBuoy },
+      { label: "Blog", href: "/blog", description: "SEO and AI search, explained", icon: Newspaper },
+      { label: "Integrations", href: "/integrations", description: "Where Rankoya publishes and measures", icon: Plug },
+      { label: "Methodology", href: "/methodology", description: "How every number is measured", icon: Ruler },
+      ...CHANGELOG_ITEM,
+    ],
+    more: {
+      title: "Company",
+      items: [
+        { label: "About", href: "/about" },
+        { label: "Brand assets", href: "/brand" },
+        { label: "Contact", href: "/contact" },
+      ],
+    },
+  },
   { kind: "link", label: "Pricing", href: "/pricing" },
-  { kind: "link", label: "FAQ", href: "/#faq" },
 ];
 
 export const LEGAL_LINKS: NavItem[] = [
@@ -98,45 +149,34 @@ export const FOOTER_COLUMNS: { title: string; links: NavItem[] }[] = [
   { title: "Product", links: [...FEATURE_ITEMS, { label: "Pricing", href: "/pricing" }] },
   {
     title: "Solutions",
-    links: [
-      { label: "For agencies", href: "/for-agencies" },
-      { label: "White Label", href: "/for-agencies#white-label" },
-    ],
+    links: [...SOLUTION_ITEMS, { label: "White Label", href: "/for-agencies#white-label" }],
+  },
+  {
+    title: "Integrations",
+    links: [...INTEGRATION_ITEMS, { label: "All integrations", href: "/integrations" }],
   },
   {
     title: "Resources",
     links: [
-      { label: "How it works", href: "/#how-it-works" },
-      { label: "Integrations", href: "/#integrations" },
+      { label: "Blog", href: "/blog" },
+      { label: "Help centre", href: "/help" },
+      { label: "Methodology", href: "/methodology" },
+      ...CHANGELOG_ITEM,
       { label: "FAQ", href: "/#faq" },
       { label: "llms.txt", href: "/llms.txt" },
+      { label: "llms-full.txt", href: "/llms-full.txt" },
     ],
   },
   {
     title: "Company",
     links: [
+      { label: "About", href: "/about" },
+      { label: "Editorial policy", href: "/editorial-policy" },
+      { label: "Brand assets", href: "/brand" },
       { label: "Contact", href: "/contact" },
       { label: "Log in", href: SIGN_IN_URL },
       { label: "Get started", href: SIGN_UP_URL },
     ],
   },
   { title: "Legal", links: LEGAL_LINKS },
-];
-
-/**
- * Every indexable page, for the sitemap and llms.txt. Add a page here when its
- * route ships.
- */
-export const SITE_PAGES: { path: string; title: string; description: string; priority: number }[] = [
-  { path: "/", title: SITE.title, description: SITE.description, priority: 1 },
-  { path: "/pricing", title: "Pricing", description: PRICING_PAGE.metaDescription, priority: 0.9 },
-  { path: "/features", title: FEATURES_INDEX.metaTitle, description: FEATURES_INDEX.metaDescription, priority: 0.8 },
-  ...FEATURE_PAGES.map((page) => ({
-    path: featureHref(page.slug),
-    title: page.metaTitle,
-    description: page.metaDescription,
-    priority: 0.8,
-  })),
-  { path: "/for-agencies", title: AGENCIES_PAGE.metaTitle, description: AGENCIES_PAGE.metaDescription, priority: 0.8 },
-  { path: "/contact", title: CONTACT_PAGE.metaTitle, description: CONTACT_PAGE.metaDescription, priority: 0.5 },
 ];

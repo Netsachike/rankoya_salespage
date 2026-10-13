@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { Logo } from "@/components/brand/logo";
 import { DesktopNav } from "@/components/layout/desktop-nav";
+import { LogoMenu } from "@/components/layout/logo-menu";
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { ButtonLink } from "@/components/ui/button";
@@ -33,9 +32,7 @@ export function Header() {
       )}
     >
       <Container className="flex h-16 items-center gap-6">
-        <Link href="/" className="-m-1 rounded-md p-1" aria-label="Rankoya home">
-          <Logo height={26} priority />
-        </Link>
+        <LogoMenu />
 
         <DesktopNav />
 

@@ -1,7 +1,10 @@
 import { FAQS } from "@/content/faq";
 import { FEATURE_PAGES, featureHref } from "@/content/feature-pages";
+import { INTEGRATION_PAGES, integrationHref } from "@/content/integration-pages";
 import { COMPARISON, ENTERPRISE_PLAN, PLANS, RESELLER } from "@/content/pricing";
-import { SIGN_UP_URL, SITE, SITE_PAGES, SITE_URL } from "@/lib/site";
+import { SOLUTION_PAGES, solutionHref } from "@/content/solution-pages";
+import { SIGN_UP_URL, SITE, SITE_URL } from "@/lib/site";
+import { SITE_PAGES } from "@/lib/site-pages";
 
 /**
  * llms.txt (https://llmstxt.org): a plain Markdown map of the site for AI
@@ -54,6 +57,17 @@ export function llmsFull() {
       "",
       ...page.faqs.flatMap((faq) => [`Q: ${faq.question}`, `A: ${faq.answer}`, ""]),
     ]),
+    "## Integrations",
+    "",
+    ...INTEGRATION_PAGES.map(
+      (page) =>
+        `- [${page.name}](${url(integrationHref(page.slug))}): ${page.summary} Access: ${page.facts.access}. Uses: ${page.facts.data}.`,
+    ),
+    "",
+    "## Who it is for",
+    "",
+    ...SOLUTION_PAGES.map((page) => `- [${page.label}](${url(solutionHref(page.slug))}): ${page.title} ${page.lead}`),
+    "",
     "## Plans",
     "",
     ...plans.map((plan) => `- ${plan.name}: ${plan.pitch} Includes: ${plan.included.join("; ")}.`),

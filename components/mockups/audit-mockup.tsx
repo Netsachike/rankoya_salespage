@@ -90,7 +90,7 @@ export function AuditMockup() {
               <span
                 className={cn(
                   "rounded-full px-2 py-0.5 text-[11px] font-medium",
-                  issue.owner === "Rankoya" ? "bg-signal/12 text-signal" : "bg-surface-2 text-fg-2",
+                  issue.owner === "Rankoya" ? "bg-signal/12 text-signal-text" : "bg-surface-2 text-fg-2",
                 )}
               >
                 {issue.owner}

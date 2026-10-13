@@ -23,6 +23,7 @@
   --color-ink-fg: var(--ink-fg);
   --color-signal: var(--signal);
   --color-signal-ink: var(--signal-ink);
+  --color-signal-text: var(--signal-text);
   --color-blue: var(--blue);
   --color-blue-bg: var(--blue-bg);
   --color-blue-ink: var(--blue-ink);
@@ -82,6 +83,8 @@
   --ink-fg: #ffffff;
   --signal: #5b47f5;
   --signal-ink: #ffffff;
+  /* Violet text on a violet tint (owner chips). */
+  --signal-text: #5b47f5;
   --blue: #2563eb;
   --blue-bg: #e6eeff;
   --blue-ink: #1d4ed8;
@@ -137,6 +140,8 @@
   --ink-fg: #ffffff;
   --signal: #7c6cff;
   --signal-ink: #ffffff;
+  /* #7c6cff is 4.25:1 on its own 12% tint; this clears AA. */
+  --signal-text: #9d91ff;
   --blue: #7aa2ff;
   --blue-bg: #17264a;
   --blue-ink: #a9c1ff;

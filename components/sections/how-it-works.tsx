@@ -66,7 +66,7 @@ export function OwnerChip({ owner, className }: { owner: Step["owner"]; classNam
     <span
       className={cn(
         "inline-flex items-center rounded-full px-2.5 py-0.5 text-[12px] font-medium",
-        owner === "Rankoya" ? "bg-signal/12 text-signal" : "bg-surface-2 text-fg-2",
+        owner === "Rankoya" ? "bg-signal/12 text-signal-text" : "bg-surface-2 text-fg-2",
         className,
       )}
     >
