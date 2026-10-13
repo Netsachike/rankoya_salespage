@@ -89,7 +89,7 @@ function InlineIcons({ ids }: { ids: PlatformId[] }) {
           className="inline-flex rounded-[0.24em] ring-[0.06em] ring-bg"
           style={{ marginInlineStart: i === 0 ? 0 : "-0.22em", zIndex: ids.length - i }}
         >
-          <PlatformIcon id={id} size={64} decorative className="size-[0.82em]" />
+          <PlatformIcon id={id} size={64} decorative eager className="size-[0.82em]" />
         </span>
       ))}
     </span>

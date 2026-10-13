@@ -129,7 +129,9 @@
   --text: #eef2f8;
   --text-2: #a8b3c7;
   --text-3: #8492a8;
-  --ink: #3b82f6;
+  /* The app uses #3b82f6 here, but white text on it is 3.7:1 (fails WCAG AA).
+     #2563eb gives 5.2:1 and still reads as Rankoya Blue on midnight. */
+  --ink: #2563eb;
   --ink-fg: #ffffff;
   --signal: #7c6cff;
   --signal-ink: #ffffff;
@@ -304,6 +306,23 @@
   transform: scale(0.97);
 }
 
+/* ───────────────────────── Scroll reveal ─────────────────────────
+ * One IntersectionObserver (components/reveal-observer.tsx) marks each
+ * .reveal as shown; these transitions do the rest. Content is only hidden once
+ * that script has run (html.reveal-ready), so it stays visible without
+ * JavaScript and under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready .reveal:not([data-shown]) {
+    opacity: 0;
+    transform: translateY(var(--reveal-y, 24px));
+  }
+  .reveal-ready .reveal[data-shown] {
+    transition:
+      opacity 600ms var(--ease-out) var(--reveal-delay, 0ms),
+      transform 600ms var(--ease-out) var(--reveal-delay, 0ms);
+  }
+}
+
 /* ───────────────────────── Mobile menu ───────────────────────── */
 @keyframes rankoya-menu-in {
   from {
@@ -313,6 +332,23 @@
 }
 .menu-dialog[open] {
   animation: rankoya-menu-in 220ms var(--ease-out);
+}
+
+/* ───────────────────────── FAQ accordion ─────────────────────────
+ * Progressive enhancement: browsers with ::details-content and
+ * interpolate-size animate the height; others open instantly. */
+.faq-item {
+  interpolate-size: allow-keywords;
+}
+.faq-item::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 280ms var(--ease-out),
+    content-visibility 280ms allow-discrete;
+}
+.faq-item[open]::details-content {
+  block-size: auto;
 }
 
 /* ───────────────────────── Works-with marquee ───────────────────────── */

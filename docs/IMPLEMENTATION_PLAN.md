@@ -174,6 +174,30 @@ Deltas always carry an arrow and sign, not only colour.
 
 Motion review across sections (500–700ms, `--ease-out`, 60–100ms stagger), Lighthouse ≥ 95 on all four categories on mobile, cross-browser pass (Chrome, Firefox, Safari, iOS Safari), screen-reader pass (NVDA + VoiceOver), real-device check, image weights audit, final copy pass against the banned-words list.
 
+#### Phase 7 results (local, production build)
+
+| Check                                                                                                   | Result                                                                                                                                                                |
+| ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| axe-core (WCAG 2.0–2.2 A/AA + best practice), light and dark, 1440px and 390px                          | 0 violations, 43 rules passing in each run                                                                                                                            |
+| Lighthouse mobile: Accessibility, Best Practices, SEO                                                   | 100 / 100 / 100                                                                                                                                                       |
+| Lighthouse mobile: Performance                                                                          | 56–77 locally; the dev machine's background load makes TBT swing from 0.45 s to 11 s between identical runs. **Re-check on the Vercel preview (PageSpeed Insights).** |
+| Unthrottled cost (Chrome performance metrics)                                                           | ~150–250 ms script, ~100 ms style, ~200–280 ms layout on load; zero work while idle; 199 KB JS transferred; 40 KB gzipped HTML                                        |
+| Console errors and warnings, broken in-page anchors, images without alt, duplicate ids, heading outline | None; one `h1`, then `h2` per section and `h3` inside                                                                                                                 |
+| JavaScript disabled                                                                                     | All content visible (reveals and mockups), FAQ opens natively                                                                                                         |
+| Reduced motion                                                                                          | Reveals off, marquee static, mockups render their end state                                                                                                           |
+| Copy                                                                                                    | Banned-words grep clean; no exclamation marks                                                                                                                         |
+
+Changes made in this phase:
+
+- **Reveal**: the per-element `motion` wrappers (about 40) were the largest main-thread cost. Replaced with one shared IntersectionObserver plus CSS transitions; content is only hidden after that script runs. A CSS scroll-driven version (`animation-timeline: view()`) was tried and measured far worse (style and layout above 11 s under throttling), so it was dropped.
+- **Hydration**: the below-the-fold sections with client code sit in their own `<Suspense>` boundaries so React hydrates them as smaller tasks.
+- **Fonts**: Geist Mono is no longer preloaded (nothing above the fold uses it), leaving the bandwidth to Geist for the hero heading.
+- **Hero marks** load eagerly (they sit inside the LCP heading).
+- **Contrast**: dark-theme `--ink` is `#2563eb` here instead of the app's `#3b82f6`. White text on `#3b82f6` is 3.7:1 and fails AA. **The app has the same issue in its dark theme.**
+- **No-JS**: a `<noscript>` rule un-hides mockup parts that animate in from opacity 0.
+
+Not done here (needs people or devices): Firefox and Safari passes, iOS Safari on a real phone, NVDA and VoiceOver passes, Lighthouse on the deployed preview.
+
 ---
 
 ## 5. Brand and copy rules (enforced in review)
