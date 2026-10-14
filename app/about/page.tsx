@@ -98,10 +98,11 @@ export default function AboutPage() {
               <Link href="/contact" className="font-medium text-blue underline">
                 Contact
               </Link>
+              {/* Hidden for now: little use before launch. The /brand page stays live.
               <span aria-hidden> · </span>
               <Link href="/brand" className="font-medium text-blue underline">
                 Brand assets
-              </Link>
+              </Link> */}
             </p>
           </Reveal>
         </Container>

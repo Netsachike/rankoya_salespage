@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, Palette } from "lucide-react";
+import { Download } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -9,7 +9,7 @@ import { BRAND_ASSETS } from "@/lib/brand-assets";
 
 /**
  * The header logo. A normal link home; a right-click (or the context-menu key)
- * opens a small menu of logo downloads and a link to /brand, as on RankYak.
+ * opens a small menu of logo downloads, as on RankYak.
  */
 export function LogoMenu() {
   const [position, setPosition] = useState<{ x: number; y: number } | null>(null);
@@ -83,16 +83,13 @@ export function LogoMenu() {
                 </a>
               </li>
             ))}
+            {/* Hidden for now: little use before launch. The /brand page stays live.
             <li className="mt-1 border-t border-border pt-1">
-              <Link
-                href="/brand"
-                onClick={() => setPosition(null)}
-                className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-[14px] text-fg transition-colors hover:bg-surface-2"
-              >
+              <Link href="/brand" onClick={() => setPosition(null)} className="...">
                 <Palette aria-hidden className="size-4 text-fg-3" />
                 All brand assets
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       ) : null}
