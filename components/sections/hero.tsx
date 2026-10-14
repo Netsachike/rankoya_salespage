@@ -39,7 +39,7 @@ export function Hero() {
           />
         </a>
 
-        <h1 id="hero-heading" className="mt-8 max-w-[18ch] text-hero-home text-fg sm:max-w-5xl">
+        <h1 id="hero-heading" className="mt-8 max-w-[18ch] text-hero-home text-fg sm:max-w-6xl">
           {heading.lead}{" "}
           <span className="whitespace-nowrap">
             <InlineIcons ids={["google"]} />
