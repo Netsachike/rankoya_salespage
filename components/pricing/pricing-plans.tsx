@@ -7,7 +7,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { type BillingPeriod, type Plan, PLANS, PRICING_COPY, RESELLER } from "@/content/pricing";
 import { cn } from "@/lib/cn";
-import { SIGN_UP_URL, SITE } from "@/lib/site";
+import { GET_STARTED_URL, SITE } from "@/lib/site";
 
 /** The billing toggle only means something once a paid plan has a price. */
 const HAS_PAID_PRICES = PLANS.some((plan) => plan.id !== "free" && plan.price.monthly !== null);
@@ -136,7 +136,7 @@ function PlanCard({ plan, period }: { plan: Plan; period: BillingPeriod }) {
       </div>
 
       <ButtonLink
-        href={SIGN_UP_URL}
+        href={GET_STARTED_URL}
         variant={plan.highlighted ? "primary" : "secondary"}
         className="mt-6 w-full"
         aria-label={`${plan.cta}: ${plan.name} plan`}

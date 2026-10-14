@@ -9,7 +9,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { PageHero } from "@/components/ui/page-hero";
 import { FEATURE_PAGE_COPY, FEATURE_SLUGS, featureHref, FEATURES_INDEX, getFeaturePage } from "@/content/feature-pages";
 import { pageMetadata } from "@/lib/metadata";
-import { SIGN_UP_URL } from "@/lib/site";
+import { GET_STARTED_URL } from "@/lib/site";
 
 export function generateStaticParams() {
   return FEATURE_SLUGS.map((slug) => ({ slug }));
@@ -39,7 +39,7 @@ export default async function FeaturePage({ params }: PageProps<"/features/[slug
         title={page.title}
         lead={page.lead}
       >
-        <ButtonLink href={SIGN_UP_URL} size="lg">
+        <ButtonLink href={GET_STARTED_URL} size="lg">
           Get started
         </ButtonLink>
         <ButtonLink href="/pricing" variant="secondary" size="lg">

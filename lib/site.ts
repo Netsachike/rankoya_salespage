@@ -32,9 +32,11 @@ export const SITE = {
   copyrightYear: 2026,
 } as const;
 
-/** The app's auth routes. The app has no `/login`. */
-export const SIGN_UP_URL = `${APP_URL}/sign-up`;
-export const SIGN_IN_URL = `${APP_URL}/sign-in`;
+/**
+ * Every "Get started" button opens the app's login page, which also links to
+ * sign-up. The app has no `/login`; its login route is `/sign-in`.
+ */
+export const GET_STARTED_URL = `${APP_URL}/sign-in`;
 
 /**
  * One link. Internal hrefs are absolute (`/pricing`, `/#faq`) so they work
@@ -177,8 +179,7 @@ export const FOOTER_COLUMNS: { title: string; links: NavItem[] }[] = [
       // Hidden for now: little use before launch. The /brand page stays live.
       // { label: "Brand assets", href: "/brand" },
       { label: "Contact", href: "/contact" },
-      { label: "Log in", href: SIGN_IN_URL },
-      { label: "Get started", href: SIGN_UP_URL },
+      { label: "Get started", href: GET_STARTED_URL },
     ],
   },
   { title: "Legal", links: LEGAL_LINKS },

@@ -4,6 +4,7 @@ import chatgpt from "@/assets/platforms/chatgpt.png";
 import claude from "@/assets/platforms/claude.png";
 import gemini from "@/assets/platforms/gemini.png";
 import ghost from "@/assets/platforms/ghost.png";
+import googleAnalytics from "@/assets/platforms/google-analytics.png";
 import googleMaps from "@/assets/platforms/google-maps.png";
 import google from "@/assets/platforms/google.png";
 import perplexity from "@/assets/platforms/perplexity.png";
@@ -56,7 +57,7 @@ export const PLATFORMS: Record<PlatformId, Platform> = {
   wix: { name: "Wix", icon: wix, monogram: "WX", kind: "publishing" },
   ghost: { name: "Ghost", icon: ghost, monogram: "GH", kind: "publishing" },
   searchConsole: { name: "Search Console", icon: searchConsole, monogram: "GSC", kind: "data" },
-  analytics: { name: "Google Analytics", icon: null, monogram: "GA", kind: "data" },
+  analytics: { name: "Google Analytics", icon: googleAnalytics, monogram: "GA", kind: "data" },
   telegram: { name: "Telegram", icon: telegram, monogram: "TG", kind: "messaging" },
 };
 

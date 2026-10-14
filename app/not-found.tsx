@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { FEATURE_PAGES, featureHref } from "@/content/feature-pages";
-import { SIGN_UP_URL } from "@/lib/site";
+import { GET_STARTED_URL } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Page not found" };
 
@@ -21,7 +21,7 @@ export default function NotFound() {
         <ButtonLink href="/" size="lg">
           Go to the home page
         </ButtonLink>
-        <ButtonLink href={SIGN_UP_URL} variant="secondary" size="lg">
+        <ButtonLink href={GET_STARTED_URL} variant="secondary" size="lg">
           Get started
         </ButtonLink>
       </div>
