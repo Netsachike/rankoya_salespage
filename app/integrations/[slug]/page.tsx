@@ -13,7 +13,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { getFeaturePage } from "@/content/feature-pages";
 import { getIntegrationPage, INTEGRATION_SLUGS, integrationHref, INTEGRATIONS_PAGE } from "@/content/integration-pages";
 import { pageMetadata } from "@/lib/metadata";
-import { SIGN_UP_URL } from "@/lib/site";
+import { GET_STARTED_URL } from "@/lib/site";
 
 export function generateStaticParams() {
   return INTEGRATION_SLUGS.map((slug) => ({ slug }));
@@ -53,7 +53,7 @@ export default async function IntegrationPage({ params }: PageProps<"/integratio
         }
         lead={page.summary}
       >
-        <ButtonLink href={SIGN_UP_URL} size="lg">
+        <ButtonLink href={GET_STARTED_URL} size="lg">
           Get started
         </ButtonLink>
       </PageHero>

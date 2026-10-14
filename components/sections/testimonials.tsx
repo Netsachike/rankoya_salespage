@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { Container, Section, SectionHeading } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { ILLUSTRATIVE_LABEL, TESTIMONIALS, TESTIMONIALS_INTRO, type Testimonial } from "@/content/testimonials";
@@ -31,15 +33,6 @@ export function Testimonials() {
   );
 }
 
-function initials(name: string) {
-  return name
-    .split(/\s+/)
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-}
-
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
     <figure className="flex flex-1 flex-col rounded-2xl border border-border bg-surface p-6 shadow-card">
@@ -57,12 +50,15 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       </blockquote>
 
       <figcaption className="mt-6 flex items-center gap-3 border-t border-border pt-5">
-        <span
-          aria-hidden
-          className="grid size-10 shrink-0 place-items-center rounded-full bg-blue-bg text-[14px] font-semibold text-blue-ink"
-        >
-          {initials(testimonial.name)}
-        </span>
+        {/* Decorative: the name is right next to it. */}
+        <Image
+          src={testimonial.avatar}
+          alt=""
+          width={44}
+          height={44}
+          sizes="44px"
+          className="size-11 shrink-0 rounded-full ring-1 ring-border"
+        />
         <span className="min-w-0">
           <span className="block text-[15px] font-semibold text-fg">{testimonial.name}</span>
           <span className="block truncate text-[14px] text-fg-2">

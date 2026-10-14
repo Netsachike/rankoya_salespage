@@ -5,7 +5,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { HERO } from "@/content/hero";
 import type { PlatformId } from "@/content/platforms";
-import { SIGN_UP_URL } from "@/lib/site";
+import { GET_STARTED_URL } from "@/lib/site";
 
 const PROOF_ICONS = { radar: Radar, shield: ShieldCheck, message: MessageCircle } as const;
 
@@ -39,7 +39,7 @@ export function Hero() {
           />
         </a>
 
-        <h1 id="hero-heading" className="mt-8 max-w-[18ch] text-hero text-fg sm:max-w-4xl">
+        <h1 id="hero-heading" className="mt-8 max-w-[18ch] text-hero-home text-fg sm:max-w-6xl">
           {heading.lead}{" "}
           <span className="whitespace-nowrap">
             <InlineIcons ids={["google"]} />
@@ -56,7 +56,7 @@ export function Hero() {
         <p className="mt-6 max-w-2xl text-lead text-fg-2">{HERO.subheading}</p>
 
         <div className="mt-9 flex flex-col items-center gap-3">
-          <ButtonLink href={SIGN_UP_URL} size="lg" className="min-w-48">
+          <ButtonLink href={GET_STARTED_URL} size="lg" className="min-w-48">
             {HERO.cta}
             <ArrowRight aria-hidden />
           </ButtonLink>

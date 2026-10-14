@@ -12,7 +12,7 @@ import { featureHref, getFeaturePage } from "@/content/feature-pages";
 import { getIntegrationPage, integrationHref } from "@/content/integration-pages";
 import { SOLUTION_PAGE_COPY, type SolutionPage as Solution, solutionHref } from "@/content/solution-pages";
 import { pageMetadata } from "@/lib/metadata";
-import { SIGN_UP_URL } from "@/lib/site";
+import { GET_STARTED_URL } from "@/lib/site";
 
 export function solutionMetadata(page: Solution) {
   return pageMetadata({ title: page.metaTitle, description: page.metaDescription, path: solutionHref(page.slug) });
@@ -33,7 +33,7 @@ export function SolutionPage({ page }: { page: Solution }) {
         title={page.title}
         lead={page.lead}
       >
-        <ButtonLink href={SIGN_UP_URL} size="lg">
+        <ButtonLink href={GET_STARTED_URL} size="lg">
           Get started
         </ButtonLink>
         <ButtonLink href="/pricing" variant="secondary" size="lg">

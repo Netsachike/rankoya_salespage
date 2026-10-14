@@ -3,7 +3,7 @@ import { FEATURE_PAGES, featureHref } from "@/content/feature-pages";
 import { INTEGRATION_PAGES, integrationHref } from "@/content/integration-pages";
 import { COMPARISON, ENTERPRISE_PLAN, PLANS, RESELLER } from "@/content/pricing";
 import { SOLUTION_PAGES, solutionHref } from "@/content/solution-pages";
-import { SIGN_UP_URL, SITE, SITE_URL } from "@/lib/site";
+import { GET_STARTED_URL, SITE, SITE_URL } from "@/lib/site";
 import { SITE_PAGES } from "@/lib/site-pages";
 
 /**
@@ -19,7 +19,7 @@ function header() {
     "",
     `> ${SITE.description}`,
     "",
-    `${SITE.name} is built by ${SITE.company}. Sign up: ${SIGN_UP_URL}`,
+    `${SITE.name} is built by ${SITE.company}. Get started: ${GET_STARTED_URL}`,
   ];
 }
 

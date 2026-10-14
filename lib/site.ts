@@ -32,9 +32,11 @@ export const SITE = {
   copyrightYear: 2026,
 } as const;
 
-/** The app's auth routes. The app has no `/login`. */
-export const SIGN_UP_URL = `${APP_URL}/sign-up`;
-export const SIGN_IN_URL = `${APP_URL}/sign-in`;
+/**
+ * Every "Get started" button opens the app's login page, which also links to
+ * sign-up. The app has no `/login`; its login route is `/sign-in`.
+ */
+export const GET_STARTED_URL = `${APP_URL}/sign-in`;
 
 /**
  * One link. Internal hrefs are absolute (`/pricing`, `/#faq`) so they work
@@ -130,7 +132,8 @@ export const MAIN_NAV: NavEntry[] = [
       title: "Company",
       items: [
         { label: "About", href: "/about" },
-        { label: "Brand assets", href: "/brand" },
+        // Hidden for now: little use before launch. The /brand page stays live.
+        // { label: "Brand assets", href: "/brand" },
         { label: "Contact", href: "/contact" },
       ],
     },
@@ -163,8 +166,9 @@ export const FOOTER_COLUMNS: { title: string; links: NavItem[] }[] = [
       { label: "Methodology", href: "/methodology" },
       ...CHANGELOG_ITEM,
       { label: "FAQ", href: "/#faq" },
-      { label: "llms.txt", href: "/llms.txt" },
-      { label: "llms-full.txt", href: "/llms-full.txt" },
+      // Hidden: these files are for AI tools, which find them at /llms.txt without a link.
+      // { label: "llms.txt", href: "/llms.txt" },
+      // { label: "llms-full.txt", href: "/llms-full.txt" },
     ],
   },
   {
@@ -172,10 +176,10 @@ export const FOOTER_COLUMNS: { title: string; links: NavItem[] }[] = [
     links: [
       { label: "About", href: "/about" },
       { label: "Editorial policy", href: "/editorial-policy" },
-      { label: "Brand assets", href: "/brand" },
+      // Hidden for now: little use before launch. The /brand page stays live.
+      // { label: "Brand assets", href: "/brand" },
       { label: "Contact", href: "/contact" },
-      { label: "Log in", href: SIGN_IN_URL },
-      { label: "Get started", href: SIGN_UP_URL },
+      { label: "Get started", href: GET_STARTED_URL },
     ],
   },
   { title: "Legal", links: LEGAL_LINKS },

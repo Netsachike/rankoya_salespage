@@ -9,7 +9,7 @@ import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/cn";
-import { SIGN_IN_URL, SIGN_UP_URL } from "@/lib/site";
+import { GET_STARTED_URL } from "@/lib/site";
 
 /** Scroll distance after which the header gets its background and border. */
 const SCROLLED_AT = 8;
@@ -38,10 +38,7 @@ export function Header() {
 
         <div className="ms-auto hidden items-center gap-2 lg:flex">
           <ThemeToggle />
-          <ButtonLink href={SIGN_IN_URL} variant="ghost" size="sm">
-            Log in
-          </ButtonLink>
-          <ButtonLink href={SIGN_UP_URL} size="sm">
+          <ButtonLink href={GET_STARTED_URL} size="sm">
             Get started
           </ButtonLink>
         </div>

@@ -19,7 +19,7 @@ import {
 } from "@/content/agencies";
 import { ENTERPRISE_PLAN, PLANS, PRICING_COPY, RESELLER, WHITE_LABEL_FEATURES } from "@/content/pricing";
 import { pageMetadata } from "@/lib/metadata";
-import { SIGN_UP_URL, SITE } from "@/lib/site";
+import { GET_STARTED_URL, SITE } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: AGENCIES_PAGE.metaTitle,
@@ -42,7 +42,7 @@ export default function ForAgenciesPage() {
         title={AGENCIES_PAGE.title}
         lead={AGENCIES_PAGE.lead}
       >
-        <ButtonLink href={SIGN_UP_URL} size="lg">
+        <ButtonLink href={GET_STARTED_URL} size="lg">
           {AGENCIES_PAGE.primaryCta}
         </ButtonLink>
         <ButtonLink href="#pricing" variant="secondary" size="lg">

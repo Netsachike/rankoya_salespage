@@ -1,8 +1,16 @@
+import type { StaticImageData } from "next/image";
+
+import adaOkafor from "@/assets/avatars/ada-okafor.png";
+import priyaNair from "@/assets/avatars/priya-nair.png";
+import tomasReyes from "@/assets/avatars/tomas-reyes.png";
+
 /**
  * Illustrative customer stories. Rankoya has no public customers yet
  * (PRODUCT.md: "do not fabricate them"), so every card is labelled as an
  * example and every person and company is fictional. Swap in real, approved
- * quotes here and set `illustrative: false` on each.
+ * quotes here and set `illustrative: false` on each. Avatars are flat,
+ * faceless illustrations, never photos, so no one mistakes them for real
+ * people; replace them with real photos only alongside real, approved quotes.
  */
 
 export type Testimonial = {
@@ -12,6 +20,7 @@ export type Testimonial = {
   company: string;
   /** Who the story represents, matching the brand guide's audiences. */
   audience: "Owner" | "In-house marketer" | "Agency";
+  avatar: StaticImageData;
   illustrative: boolean;
 };
 
@@ -31,6 +40,7 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "Owner",
     company: "Northwind Roasters",
     audience: "Owner",
+    avatar: adaOkafor,
     illustrative: true,
   },
   {
@@ -40,6 +50,7 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "Marketing lead",
     company: "Halden Outdoor",
     audience: "In-house marketer",
+    avatar: tomasReyes,
     illustrative: true,
   },
   {
@@ -49,6 +60,7 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "Founder",
     company: "Lumen & Pine Studio",
     audience: "Agency",
+    avatar: priyaNair,
     illustrative: true,
   },
 ];

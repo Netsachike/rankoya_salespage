@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/brand/logo";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { SmartLink } from "@/components/ui/smart-link";
-import { MAIN_NAV, SIGN_IN_URL, SIGN_UP_URL } from "@/lib/site";
+import { GET_STARTED_URL, MAIN_NAV } from "@/lib/site";
 
 const DIALOG_ID = "mobile-menu";
 
@@ -118,11 +118,8 @@ export function MobileMenu() {
           </nav>
 
           <div className="flex shrink-0 flex-col gap-3 pt-6 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-            <ButtonLink href={SIGN_UP_URL} size="lg">
+            <ButtonLink href={GET_STARTED_URL} size="lg">
               Get started
-            </ButtonLink>
-            <ButtonLink href={SIGN_IN_URL} variant="secondary" size="lg">
-              Log in
             </ButtonLink>
           </div>
         </div>

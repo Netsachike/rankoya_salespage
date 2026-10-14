@@ -5,7 +5,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { FINAL_CTA } from "@/content/faq";
-import { SIGN_UP_URL } from "@/lib/site";
+import { GET_STARTED_URL } from "@/lib/site";
 
 /** Closing call to action on the fixed-dark brand panel. */
 export function FinalCta() {
@@ -24,7 +24,7 @@ export function FinalCta() {
               {FINAL_CTA.title}
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lead text-nav-fg">{FINAL_CTA.lead}</p>
-            <ButtonLink href={SIGN_UP_URL} variant="inverse" size="lg" className="mt-10 min-w-48">
+            <ButtonLink href={GET_STARTED_URL} variant="inverse" size="lg" className="mt-10 min-w-48">
               {FINAL_CTA.cta}
               <ArrowRight aria-hidden />
             </ButtonLink>
