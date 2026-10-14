@@ -7,7 +7,9 @@ import ghost from "@/assets/platforms/ghost.png";
 import googleMaps from "@/assets/platforms/google-maps.png";
 import google from "@/assets/platforms/google.png";
 import perplexity from "@/assets/platforms/perplexity.png";
+import searchConsole from "@/assets/platforms/search-console.png";
 import shopify from "@/assets/platforms/shopify.png";
+import telegram from "@/assets/platforms/telegram.png";
 import webflow from "@/assets/platforms/webflow.png";
 import wix from "@/assets/platforms/wix.png";
 import wordpress from "@/assets/platforms/wordpress.png";
@@ -53,9 +55,9 @@ export const PLATFORMS: Record<PlatformId, Platform> = {
   webflow: { name: "Webflow", icon: webflow, monogram: "WF", kind: "publishing" },
   wix: { name: "Wix", icon: wix, monogram: "WX", kind: "publishing" },
   ghost: { name: "Ghost", icon: ghost, monogram: "GH", kind: "publishing" },
-  searchConsole: { name: "Search Console", icon: null, monogram: "GSC", kind: "data" },
+  searchConsole: { name: "Search Console", icon: searchConsole, monogram: "GSC", kind: "data" },
   analytics: { name: "Google Analytics", icon: null, monogram: "GA", kind: "data" },
-  telegram: { name: "Telegram", icon: null, monogram: "TG", kind: "messaging" },
+  telegram: { name: "Telegram", icon: telegram, monogram: "TG", kind: "messaging" },
 };
 
 /** The six platforms the app measures visibility on, in the app's order. */
